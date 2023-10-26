@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="SignalBooster.Views.Controls.RollingTimerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:SignalBooster.ViewModels"
+             xmlns:conv="clr-namespace:SignalBooster.Converters"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <vm:RollingTimerViewModel x:Name="ViewModel"/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <GridLength x:Key="Spacing">20</GridLength>
+        <conv:ProgressBarTriColourConverter x:Key="ProgressColourConv"
+                                            Low="{ui:ThemeResource SystemAccentColorPrimary}" LowOpacity="1.0"
+                                            Mid="{ui:ThemeResource SystemAccentColorSecondary}" MidOpacity="0.6"
+                                            High="{ui:ThemeResource SystemAccentColorTertiary}" HighOpacity="0.3"/>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto" MinWidth="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource Spacing}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource Spacing}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{StaticResource Spacing}"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="{StaticResource Spacing}"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Duration:" FontSize="20" Opacity="0.5" />
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding DurationText, Mode=OneWay}" FontSize="20"/>
+        
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Elapsed:" FontSize="20" Opacity="0.5" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding ElapsedText, Mode=OneWay}" FontSize="20"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Remaining:" FontSize="20" Opacity="0.5" />
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding RemainingText, Mode=OneWay}" FontSize="20"/>
+        
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Is Running:" FontSize="20" Opacity="0.5" />
+        <CheckBox Grid.Column="1" Grid.Row="5" IsChecked="{Binding IsRunning, Mode=OneWay}" IsEnabled="False"/>
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Reset Count:" FontSize="20" Opacity="0.5" />
+        <ui:NumberBox Grid.Column="1" Grid.Row="6" Value="{Binding ResetCount, Mode=OneWay}" IsEnabled="False" Minimum="0"/>
+        
+        <ProgressBar Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" Value="{Binding PercentRemaining, Mode=OneWay}" Minimum="0" Maximum="1" VerticalAlignment="Stretch" Foreground="{Binding PercentRemaining, Converter={StaticResource ProgressColourConv}, Mode=OneWay}"/>
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding PercentRemainingText, Mode=OneWay}"/>
+        
+        <UniformGrid Columns="2" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10">
+            <Button Command="{Binding RolloverCommand}" Content="{Binding RolloverAction}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,2,0"/>
+            <Button Command="{Binding CancelCommand}" Content="{Binding CancelAction}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="2,0,0,0"/>
+        </UniformGrid>
+    </Grid>
+</UserControl>
+
