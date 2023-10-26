@@ -34,9 +34,7 @@ public sealed class SettingsViewModel : ViewModelBase {
         SaveCommand         = new RelayCommand(Save);
         LoadDefaultsCommand = new RelayCommand(LoadDefaultKeybinds);
         
-        if (_Dest.Exists) {
-            InitAsync();
-        }
+        InitAsync();
     }
     
     void RemoveBoundAction( BoundActionView? View ) {
@@ -86,20 +84,6 @@ public sealed class SettingsViewModel : ViewModelBase {
         Application.Current.Shutdown();
     }
     
-    async void InitAsync() {
-        KeybindsFile? Keybinds;
-        await using (FileStream Stream = _Dest.OpenRead()) {
-            try {
-                Keybinds = await JsonSerializer.DeserializeAsync<KeybindsFile>(Stream, _Options);
-            } catch (JsonException Ex) {
-                Console.WriteLine($"Failed to deserialize keybinds file: {Ex}");
-                return;
-            }
-        }
-        Keybinds ??= KeybindsFile.Default;
-        AppendKeybindsFile(Keybinds);
-    }
-    
     void AppendKeybindsFile( KeybindsFile Keybinds ) {
         foreach (BoundAction Action in Keybinds.BoundActions) {
             BoundActionView View = new() {
@@ -108,13 +92,14 @@ public sealed class SettingsViewModel : ViewModelBase {
             BoundActions.Add(View);
         }
     }
+    void LoadKeybindsFile( KeybindsFile Keybinds ) {
+        Clear();
+        AppendKeybindsFile(Keybinds);
+    }
     
     void Clear() => BoundActions.Clear();
 
-    void LoadDefaultKeybinds() {
-        Clear();
-        AppendKeybindsFile(KeybindsFile.Default);
-    }
+    void LoadDefaultKeybinds() => LoadKeybindsFile(KeybindsFile.Default);
     
     /// <summary> Gets the current keybinds file, creating it if it doesn't exist. </summary>
     /// <returns> The keybinds file. </returns>
@@ -129,5 +114,10 @@ public sealed class SettingsViewModel : ViewModelBase {
             }
         }
         return KeybindsFile.Default;
+    }
+    
+    async void InitAsync() {
+        KeybindsFile Keybinds = await GetOrCreateKeybindsFile();
+        LoadKeybindsFile(Keybinds);
     }
 }
