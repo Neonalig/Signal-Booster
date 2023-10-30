@@ -1,5 +1,7 @@
 # Signal Booster for Dead Signal
 
+![Signal Booster Logo](https://raw.githubusercontent.com/Neonalig/Signal-Booster/main/Resources/SignalBoosterLogo.png)
+
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Neonalig/Signal-Booster?style=flat-square)](<https://github.com/Neonalig/Signal-Booster/releases/latest>)
 [![GitHub](https://img.shields.io/github/license/Neonalig/Signal-Booster?style=flat-square)](<https://github.com/Neonalig/Signal-Booster/blob/main/LICENSE.md>)
 [![GitHub all releases](https://img.shields.io/github/downloads/Neonalig/Signal-Booster/total?style=flat-square)](<https://github.com/Neonalig/Signal-Booster/releases/latest>)
@@ -9,6 +11,8 @@ Welcome to **Signal Booster**, the must-have companion for every avid player of 
 Let's face it, we've all been there - facing off a hundred different threats, and then BAM (quite literally), as you're shown off by Lucas because you happened to be looking at the computer the same frame the code changed. But fear not, brave (or foolish) gamer, for **Signal Booster** is here to turn your luck around bypass all those dead signals or whatever it is you do in that game.
 
 ## What is Signal Booster?
+
+![Signal Booster Main View Screenshot](https://raw.githubusercontent.com/Neonalig/Signal-Booster/main/Resources/SignalBooster-Main.png)
 
 **Signal Booster** is a simple, yet devilishly clever C# WPF application that acts as your trusty sidekick in the tumultuous world of [Dead Signal](https://store.steampowered.com/app/2599300/Dead_Signal/). It's a rolling timer that syncs up with the game's quirky keypad code mechanic, helping you predict when the next code change will occur and giving you that much-needed edge to conquer the game (or at least not die as often 💀).
 
@@ -39,6 +43,8 @@ Actually, speaking of payment, [buy me a cuppa?](https://bmc.link/neonalig) ☕�
 5. Revel in the glory of your newfound gaming prowess.
 
 ## Keybinds
+
+![Signal Booster Keybinds Screenshot](https://raw.githubusercontent.com/Neonalig/Signal-Booster/main/Resources/SignalBooster-Keybinds.png)
 
 - **Rollover**: Press `NumPad -` (you can change this in the settings) whenever the keypad code changes in the game.
 - **Cancel**: Press `NumPad *` (this one is customisable too) when you die (because let's be honest, it's going to happen) to pause or clear the timer and start afresh.
